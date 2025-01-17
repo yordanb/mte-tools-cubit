@@ -68,7 +68,8 @@ class _PinjamPageState extends State<PinjamPage> {
       "nrp": selectedNRP,
       "nama": selectedName,
       "tool": selectedToolIds,
-      "date": "${now.day} ${_monthName(now.month)} ${now.year}",
+      "date": "${now.year}-${now.month}-${now.day}",
+      //"date": "${now.day} ${_monthName(now.month)} ${now.year}",
       "time": "${now.hour}:${now.minute.toString().padLeft(2, '0')}"
     };
 
@@ -94,12 +95,12 @@ class _PinjamPageState extends State<PinjamPage> {
     if (confirm == true) {
       try {
         final response = await http.post(
-          Uri.parse('http://209.182.237.240:1880/tools'),
+          Uri.parse('http://209.182.237.240:5500/api/trx'),
           headers: {'Content-Type': 'application/json'},
           body: json.encode(jsonData),
         );
 
-        if (response.statusCode == 200) {
+        if (response.statusCode == 201) {
           showDialog(
             context: context,
             builder: (context) => AlertDialog(
