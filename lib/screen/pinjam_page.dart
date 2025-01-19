@@ -155,24 +155,6 @@ class _PinjamPageState extends State<PinjamPage> {
     });
   }
 
-  String _monthName(int month) {
-    const months = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "Mei",
-      "Jun",
-      "Jul",
-      "Agu",
-      "Sep",
-      "Okt",
-      "Nov",
-      "Des"
-    ];
-    return months[month - 1];
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -238,13 +220,13 @@ class _PinjamPageState extends State<PinjamPage> {
                     final tools = state.tools.where((tool) {
                       return tool.name.toLowerCase().contains(toolSearchQuery);
                     }).toList();
-
                     return ListView.builder(
                       itemCount: tools.length,
                       itemBuilder: (context, index) {
                         final tool = tools[index];
                         final isSelected = selectedToolIds.contains(tool.id);
-
+                        final isDisabled = tool.ready ==
+                            "False"; // Tambahkan pengecekan status
                         return ListTile(
                           leading: CachedNetworkImage(
                             imageUrl:
@@ -257,20 +239,34 @@ class _PinjamPageState extends State<PinjamPage> {
                             height: 100,
                             fit: BoxFit.cover,
                           ),
-                          title: Text(tool.name),
-                          subtitle: Text(tool.description),
+                          title: Text(
+                            tool.name,
+                            style: isDisabled
+                                ? const TextStyle(color: Colors.grey)
+                                : null,
+                          ),
+                          subtitle: Text(
+                            tool.description,
+                            style: isDisabled
+                                ? const TextStyle(color: Colors.grey)
+                                : null,
+                          ),
                           trailing: Checkbox(
                             value: isSelected,
-                            onChanged: (value) {
-                              setState(() {
-                                if (value == true) {
-                                  selectedToolIds.add(tool.id);
-                                } else {
-                                  selectedToolIds.remove(tool.id);
-                                }
-                              });
-                            },
+                            onChanged: isDisabled
+                                ? null // Nonaktifkan checkbox jika tool tidak siap
+                                : (value) {
+                                    setState(() {
+                                      if (value == true) {
+                                        selectedToolIds.add(tool.id);
+                                      } else {
+                                        selectedToolIds.remove(tool.id);
+                                      }
+                                    });
+                                  },
                           ),
+                          enabled:
+                              !isDisabled, // Nonaktifkan interaksi ListTile jika tool tidak siap
                         );
                       },
                     );
