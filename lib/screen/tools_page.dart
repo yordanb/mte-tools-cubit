@@ -218,17 +218,39 @@ class _ToolsPageState extends State<ToolsPage> {
                                 ),
                               ),
                               // Kolom kanan: Indeks tool
+
                               Expanded(
                                 flex: 1, // Mengatur proporsi kolom
                                 child: Align(
                                   alignment: Alignment.centerRight,
-                                  child: Text(
-                                    '#${index + 1}', // Menampilkan indeks (dimulai dari 1)
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.grey,
-                                    ),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize
+                                        .min, // Mengatur ukuran column sesuai isi
+                                    children: [
+                                      // Lingkaran indikator
+                                      Container(
+                                        width: 16, // Sesuai dengan ukuran font
+                                        height: 16,
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: tool.ready == "True"
+                                              ? Colors.green
+                                              : Colors.red,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                          height:
+                                              4), // Jarak antara lingkaran dan teks
+                                      // Teks indeks
+                                      Text(
+                                        '#${index + 1}', // Menampilkan indeks (dimulai dari 1)
+                                        style: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),

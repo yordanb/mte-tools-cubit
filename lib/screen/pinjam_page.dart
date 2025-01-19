@@ -7,6 +7,9 @@ import 'dart:convert';
 import '../cubit/tools_cubit.dart';
 
 class PinjamPage extends StatefulWidget {
+  //final List<String> restrictedNRPs;
+
+  //PinjamPage({required this.restrictedNRPs});
   @override
   _PinjamPageState createState() => _PinjamPageState();
 }

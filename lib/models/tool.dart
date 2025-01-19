@@ -1,11 +1,10 @@
-// Struktur file: lib/models/tool.dart
-
 class Tool {
   final int id;
   final String name;
   final String description;
   final String imageUrl;
   final DateTime createdAt;
+  final String ready;
 
   Tool({
     required this.id,
@@ -13,6 +12,7 @@ class Tool {
     required this.description,
     required this.imageUrl,
     required this.createdAt,
+    required this.ready,
   });
 
   factory Tool.fromJson(Map<String, dynamic> json) {
@@ -22,6 +22,7 @@ class Tool {
       description: json['description'],
       imageUrl: json['image_url'],
       createdAt: DateTime.parse(json['created_at']),
+      ready: json['ready'],
     );
   }
 }
